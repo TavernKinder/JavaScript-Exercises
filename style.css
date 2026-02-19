@@ -1,0 +1,22 @@
+body {
+    margin:0px;
+    padding:0px;
+}
+
+h1 {
+    font-size: 4em;
+}
+
+.index-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.index-page h1 {
+    font-size: 5em;
+}
+
+.index-page li {
+    font-size: 2.5em;
+}
