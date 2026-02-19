@@ -3,11 +3,11 @@ const prevPokeBtn = document.getElementById("prevPokeBtn");
 const nextPokeBtn = document.getElementById("nextPokeBtn");
 const pokeName = document.getElementById("pokeName");
 const pokeImg = document.getElementById("pokeImg");
+const changeVer = document.getElementById("changeVer");
 
 let pokeData = [];
 let pokeCurrentNum = 0;
 let pokeInfo = {};
-let activateVersion = 1;
 
 
 async function getIndvPoke(pokeNum) {
@@ -19,24 +19,28 @@ async function getIndvPoke(pokeNum) {
     // Pokemon Image
     pokeImg.src = pokeInfo.sprites.front_default;
     pokeImg.alt = pokeInfo.name + " image";
-    
     console.log(pokeCurrentNum);
     console.log(pokeInfo);
-    await getDescription(activateVersion);
+    await getDescription();
 }
 
-async function getDescription(version) {
+async function getDescription() {
     const descRes = await fetch(pokeInfo.species.url);
     const descInfo = await descRes.json();
-    console.log(version);
     console.log(descInfo);
-    if (version === 1) {
-        const redEntry = descInfo.flavor_text_entries.find(entry => entry.version.name === "red" && entry.language.name === "en");
-        pokeDesc.textContent = redEntry ? redEntry.flavor_text : "No Description Available";
-    } else if (version === 2) {
-        const blueEntry = descInfo.flavor_text_entries.find(entry => entry.version.name === "blue" && entry.language.name === "en");
-        pokeDesc.textContent = blueEntry ? blueEntry.flavor_text : "No Description Available";
+    const redEntry = descInfo.flavor_text_entries.find(entry => entry.version.name === "red" && entry.language.name === "en");
+    const rawText = redEntry ? redEntry.flavor_text : "No Description Available";
+    function escapeHtml(str) {
+        return str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
     }
+    const safe = escapeHtml(rawText);
+    const formattedText = safe.replace(/\f/g, '<br>');
+    pokeDesc.innerHTML = formattedText;
 }
 
 async function main() {
@@ -69,6 +73,5 @@ async function main() {
             await getIndvPoke(pokeCurrentNum);
         }
     });
-
 }
 main();
