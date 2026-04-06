@@ -1,0 +1,9 @@
+@import url("../../style.css");
+
+button {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 200px;
+}

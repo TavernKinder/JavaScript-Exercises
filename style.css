@@ -1,22 +1,31 @@
+html,
 body {
-    margin:0px;
-    padding:0px;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+body.index-page {
+  background-color: #f0f0f0;
+  font-size: 2.5em;
+  list-style-position: inside;
 }
 
 h1 {
-    font-size: 4em;
+  font-size: 3em;
 }
 
-.index-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.index-page h1 {
-    font-size: 5em;
-}
-
-.index-page li {
-    font-size: 2.5em;
+footer {
+  margin-top: auto;
+  width: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  text-align: right;
 }
